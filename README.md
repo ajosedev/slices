@@ -10,5 +10,6 @@ A proof of concept for now, but will gradually build features to turn it into mo
 - More components - grid, quote
 - Add styling props to components - e.g. bold, size, etc.
 - Add base styling to make everything pretty
+- Deploy site, SSR, etc
 - New view that abstracts the JSON
   - i.e. adding components and moving inputs around rather than JSON
