@@ -19,12 +19,24 @@ const mainStyles = css`
 
 const IndexPage = () => {
   const [content, setContent] = useState(testContent);
+
+  const handleAddComponent = () => {
+    const newContent = content.concat({
+      component: 'Text',
+      children: 'Extra added text',
+    });
+    setContent(newContent);
+  };
+
   return (
     <main css={mainStyles}>
       <div>
         <pre>
           <code>{JSON.stringify(content, null, 2)}</code>
         </pre>
+        <button onClick={handleAddComponent} type="submit">
+          Add text
+        </button>
       </div>
       <div>{content.map(comp => renderComponent(comp))}</div>
     </main>
