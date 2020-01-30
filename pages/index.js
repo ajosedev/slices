@@ -1,4 +1,4 @@
-import testContent from '../lib/testContent.json';
+import testContent from '../lib/testContent';
 
 import { renderComponent } from '../components/Helpers';
 
