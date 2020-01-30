@@ -1,19 +1,17 @@
 import React from 'react';
 
+import Button from './Button';
 import Heading from './Heading';
+import Line from './Line';
 import Text from './Text';
 
 export const componentMap = {
+  button: Button,
   heading: Heading,
+  line: Line,
   text: Text,
 };
 
-/**
- * Converts ACF field data to React props for a component
- * Should only be necessary if the data returned from GraphQL doesn't match the component props
- * @param {String} componentName - name of the ACF component
- * @param {String} rawFields - JSON string of fields in the ACF component
- */
 // const propMapper = (componentName, fields) => {
 //   switch (componentName) {
 //     case 'text':

@@ -6,7 +6,7 @@ A proof of concept for now, but will gradually build features to turn it into mo
 
 ## TODO
 
-- Moreore components
+- More components - image, quote
 - Split screen view where JSON is on the left and it makes page on the right
 - New view that abstracts the JSON
   - i.e. adding components and moving inputs around rather than JSON
