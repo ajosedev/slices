@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { css, jsx } from '@emotion/core';
 
 import testContent from '../lib/testContent';
@@ -8,7 +8,6 @@ import { renderComponent } from '../components/Helpers';
 
 const mainStyles = css`
   display: flex;
-  align-items: center;
   justify-content: center;
   gap: 2rem;
 
@@ -18,14 +17,34 @@ const mainStyles = css`
 `;
 
 const IndexPage = () => {
+  const [addingComponent, setAddingComponent] = useState(false);
   const [content, setContent] = useState(testContent);
+  // const form = useRef();
 
-  const handleAddComponent = () => {
+  const toggleAddingComponent = () => {
+    setAddingComponent(!addingComponent);
+  };
+
+  const handleAddComponent = e => {
+    e.preventDefault();
+    // Convert form to key/value obj
+    const fields = Array.from(e.target.childNodes)
+      .filter(el => el.name)
+      .reduce(
+        (form, el) => ({
+          ...form,
+          [el.name]: el.value,
+        }),
+        {},
+      );
+
     const newContent = content.concat({
       component: 'Text',
-      children: 'Extra added text',
+      ...fields,
     });
     setContent(newContent);
+
+    toggleAddingComponent();
   };
 
   return (
@@ -34,8 +53,13 @@ const IndexPage = () => {
         <pre>
           <code>{JSON.stringify(content, null, 2)}</code>
         </pre>
-        <button onClick={handleAddComponent} type="submit">
-          Add text
+        {addingComponent && (
+          <form onSubmit={handleAddComponent}>
+            <input name="children" />
+          </form>
+        )}
+        <button onClick={toggleAddingComponent} type="submit">
+          Add component
         </button>
       </div>
       <div>{content.map(comp => renderComponent(comp))}</div>
