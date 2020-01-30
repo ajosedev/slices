@@ -2,12 +2,14 @@ import React from 'react';
 
 import Button from './Button';
 import Heading from './Heading';
+import Image from './Image';
 import Line from './Line';
 import Text from './Text';
 
 export const componentMap = {
   button: Button,
   heading: Heading,
+  image: Image,
   line: Line,
   text: Text,
 };
