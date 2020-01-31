@@ -5,7 +5,11 @@ import { css, jsx } from '@emotion/core';
 import testContent from '../lib/testContent';
 
 import FormInput from '../components/FormInput';
-import { ComponentProps, renderComponent } from '../components/Helpers';
+import {
+  AllComponents,
+  ComponentProps,
+  renderComponent,
+} from '../components/Helpers';
 
 const mainStyles = css`
   display: flex;
@@ -20,14 +24,12 @@ const mainStyles = css`
 const IndexPage = () => {
   const [addingComponent, setAddingComponent] = useState(null);
   const [content, setContent] = useState(testContent);
-  // const form = useRef();
+  const [newComponent, setNewComponent] = useState('Text');
 
-  const toggleAddingComponent = component => {
-    if (addingComponent) {
-      setAddingComponent(null);
-    } else {
-      setAddingComponent(component);
-    }
+  const toggleAddingComponent = e => {
+    e.preventDefault();
+
+    setAddingComponent(newComponent);
   };
 
   const handleAddComponent = e => {
@@ -44,12 +46,12 @@ const IndexPage = () => {
       );
 
     const newContent = content.concat({
-      component: 'Text',
+      component: newComponent,
       ...fields,
     });
     setContent(newContent);
 
-    toggleAddingComponent();
+    setAddingComponent(null);
   };
 
   return (
@@ -68,9 +70,21 @@ const IndexPage = () => {
             <button type="submit">Add</button>
           </form>
         ) : (
-          <button onClick={() => toggleAddingComponent('Text')} type="submit">
-            Add Text
-          </button>
+          <form onSubmit={toggleAddingComponent}>
+            <select
+              value={newComponent}
+              onChange={e => setNewComponent(e.target.value)}
+            >
+              {AllComponents.map(component => (
+                <option key={component} value={component}>
+                  {component}
+                </option>
+              ))}
+            </select>
+            <button onClick={toggleAddingComponent} type="submit">
+              {`Add ${newComponent}`}
+            </button>
+          </form>
         )}
       </div>
       <div>{content.map(comp => renderComponent(comp))}</div>

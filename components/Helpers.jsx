@@ -43,6 +43,8 @@ export const ComponentProps = Object.entries(ComponentMap).reduce(
   {},
 );
 
+export const AllComponents = Object.keys(ComponentMap);
+
 const components = Object.entries(ComponentMap).reduce(
   (acc, [componentName, component]) => {
     acc[componentName] = component.component;
