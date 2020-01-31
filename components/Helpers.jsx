@@ -6,28 +6,57 @@ import Image from './Image';
 import Line from './Line';
 import Text from './Text';
 
-export const ComponentMap = {
+const ComponentMap = {
   // button: Button,
-  heading: Heading,
-  image: Image,
-  line: Line,
-  text: Text,
-};
-
-// A list of components and which
-export const ComponentProps = {
+  Heading: {
+    component: Heading,
+    props: {
+      content: 'text',
+    },
+  },
+  Image: {
+    component: Image,
+    props: {
+      alt: 'text',
+      height: 'number',
+      source: 'text',
+      width: 'number',
+    },
+  },
+  Line: {
+    component: Line,
+  },
   Text: {
-    content: 'text',
+    component: Text,
+    props: {
+      content: 'text',
+    },
   },
 };
 
-export const renderComponent = ({ component, ...props }) => {
-  const comp = component.toLowerCase();
+export const ComponentProps = Object.entries(ComponentMap).reduce(
+  (acc, [componentName, component]) => {
+    acc[componentName] = component.props;
 
-  const Component = ComponentMap[comp];
+    return acc;
+  },
+  {},
+);
+
+const components = Object.entries(ComponentMap).reduce(
+  (acc, [componentName, component]) => {
+    acc[componentName] = component.component;
+
+    return acc;
+  },
+  {},
+);
+
+export const renderComponent = ({ component, ...props }) => {
+  const Component = components[component];
 
   if (!Component) {
-    throw new Error(`No component found for ${comp}`);
+    throw new Error(`No component found for ${component}`);
   }
 
   return <Component {...props} />;
