@@ -4,6 +4,7 @@ import { css, jsx } from '@emotion/core';
 
 import testContent from '../lib/testContent';
 
+import FormInput from '../components/FormInput';
 import { ComponentProps, renderComponent } from '../components/Helpers';
 
 const mainStyles = css`
@@ -15,17 +16,6 @@ const mainStyles = css`
     flex: 1 1 0;
   }
 `;
-
-const FormInput = props => {
-  const { label, type } = props;
-
-  return (
-    <label data-type="input">
-      <p>{label}</p>
-      <input name={label} type={type} />
-    </label>
-  );
-};
 
 const IndexPage = () => {
   const [addingComponent, setAddingComponent] = useState(null);
@@ -70,9 +60,11 @@ const IndexPage = () => {
         </pre>
         {addingComponent ? (
           <form onSubmit={handleAddComponent}>
-            {Object.entries(ComponentProps[addingComponent]).map(([label, type]) => (
-              <FormInput label={label} type={type} />
-            ))}
+            {Object.entries(ComponentProps[addingComponent]).map(
+              ([label, type]) => (
+                <FormInput key={label} label={label} type={type} />
+              ),
+            )}
             <button type="submit">Add</button>
           </form>
         ) : (
