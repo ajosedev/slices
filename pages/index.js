@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { css, jsx } from '@emotion/core';
 
 import testContent from '../lib/testContent';
@@ -16,19 +16,40 @@ const mainStyles = css`
   }
 `;
 
+const FormInput = props => {
+  const { label, type } = props;
+
+  return (
+    <label data-type="input">
+      <p>{label}</p>
+      <input name={label} type={type} />
+    </label>
+  );
+};
+
+const PropMap = {
+  Text: {
+    children: 'text',
+  },
+};
+
 const IndexPage = () => {
-  const [addingComponent, setAddingComponent] = useState(false);
+  const [addingComponent, setAddingComponent] = useState(null);
   const [content, setContent] = useState(testContent);
   // const form = useRef();
 
-  const toggleAddingComponent = () => {
-    setAddingComponent(!addingComponent);
+  const toggleAddingComponent = component => {
+    if (addingComponent) {
+      setAddingComponent(null);
+    } else {
+      setAddingComponent(component);
+    }
   };
 
   const handleAddComponent = e => {
     e.preventDefault();
     // Convert form to key/value obj
-    const fields = Array.from(e.target.childNodes)
+    const fields = Array.from(e.target.querySelectorAll('input'))
       .filter(el => el.name)
       .reduce(
         (form, el) => ({
@@ -53,14 +74,18 @@ const IndexPage = () => {
         <pre>
           <code>{JSON.stringify(content, null, 2)}</code>
         </pre>
-        {addingComponent && (
+        {addingComponent ? (
           <form onSubmit={handleAddComponent}>
-            <input name="children" />
+            {Object.entries(PropMap[addingComponent]).map(([label, type]) => (
+              <FormInput label={label} type={type} />
+            ))}
+            <button type="submit">Add</button>
           </form>
+        ) : (
+          <button onClick={() => toggleAddingComponent('Text')} type="submit">
+            Add Text
+          </button>
         )}
-        <button onClick={toggleAddingComponent} type="submit">
-          Add component
-        </button>
       </div>
       <div>{content.map(comp => renderComponent(comp))}</div>
     </main>
