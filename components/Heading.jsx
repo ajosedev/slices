@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 
 const Heading = props => {
-  const { children, level } = props;
+  const { content, level } = props;
 
   const Element = `h${level}`;
 
-  return <Element>{children}</Element>;
+  return <Element>{content}</Element>;
 };
 
 Heading.propTypes = {
-  children: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
   level: PropTypes.number.isRequired,
 };
 

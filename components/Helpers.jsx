@@ -6,7 +6,7 @@ import Image from './Image';
 import Line from './Line';
 import Text from './Text';
 
-export const componentMap = {
+export const ComponentMap = {
   // button: Button,
   heading: Heading,
   image: Image,
@@ -14,23 +14,17 @@ export const componentMap = {
   text: Text,
 };
 
-// const propMapper = (componentName, fields) => {
-//   switch (componentName) {
-//     case 'text':
-//       return {
-//         children: fields.text,
-//       };
-
-//     default:
-//       return fields;
-//   }
-// };
+// A list of components and which
+export const ComponentProps = {
+  Text: {
+    content: 'text',
+  },
+};
 
 export const renderComponent = ({ component, ...props }) => {
   const comp = component.toLowerCase();
-  // const props = propMapper(comp, rest);
 
-  const Component = componentMap[comp];
+  const Component = ComponentMap[comp];
 
   if (!Component) {
     throw new Error(`No component found for ${comp}`);
@@ -40,7 +34,7 @@ export const renderComponent = ({ component, ...props }) => {
 };
 
 renderComponent.propTypes = {
-  component: Object.keys(componentMap).isRequired,
+  component: Object.keys(ComponentMap).isRequired,
 };
 
 export default renderComponent;

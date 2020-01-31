@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 
 const Text = props => {
-  const { children } = props;
+  const { content } = props;
 
-  return <p>{children}</p>;
+  return <p>{content}</p>;
 };
 
 Text.propTypes = {
-  children: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
 };
 
 export default Text;

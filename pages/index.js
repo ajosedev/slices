@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/core';
 
 import testContent from '../lib/testContent';
 
-import { renderComponent } from '../components/Helpers';
+import { ComponentProps, renderComponent } from '../components/Helpers';
 
 const mainStyles = css`
   display: flex;
@@ -25,12 +25,6 @@ const FormInput = props => {
       <input name={label} type={type} />
     </label>
   );
-};
-
-const PropMap = {
-  Text: {
-    children: 'text',
-  },
 };
 
 const IndexPage = () => {
@@ -76,7 +70,7 @@ const IndexPage = () => {
         </pre>
         {addingComponent ? (
           <form onSubmit={handleAddComponent}>
-            {Object.entries(PropMap[addingComponent]).map(([label, type]) => (
+            {Object.entries(ComponentProps[addingComponent]).map(([label, type]) => (
               <FormInput label={label} type={type} />
             ))}
             <button type="submit">Add</button>
