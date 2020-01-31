@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { css, jsx } from '@emotion/core';
 
+import Head from 'next/head';
+
 import testContent from '../lib/testContent';
 
 import FormInput from '../components/FormInput';
@@ -56,6 +58,10 @@ const IndexPage = () => {
 
   return (
     <main css={mainStyles}>
+      <Head>
+        <title>Slices | ajosedev</title>
+        <meta name="description" value="A JSON-ish to React page creator" />
+      </Head>
       <div>
         <pre>
           <code>{JSON.stringify(content, null, 2)}</code>
