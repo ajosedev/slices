@@ -12,6 +12,7 @@ const ComponentMap = {
     component: Heading,
     props: {
       content: 'text',
+      level: 'number',
     },
   },
   Image: {
