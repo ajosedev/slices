@@ -28,17 +28,17 @@ const IndexPage = () => {
   const [content, setContent] = useState(testContent);
   const [newComponent, setNewComponent] = useState('Text');
 
-  const toggleAddingComponent = e => {
+  const toggleAddingComponent = (e) => {
     e.preventDefault();
 
     setAddingComponent(newComponent);
   };
 
-  const handleAddComponent = e => {
+  const handleAddComponent = (e) => {
     e.preventDefault();
     // Convert form to key/value obj
     const fields = Array.from(e.target.querySelectorAll('input'))
-      .filter(el => el.name)
+      .filter((el) => el.name)
       .reduce(
         (form, el) => ({
           ...form,
@@ -79,9 +79,9 @@ const IndexPage = () => {
           <form onSubmit={toggleAddingComponent}>
             <select
               value={newComponent}
-              onChange={e => setNewComponent(e.target.value)}
+              onChange={(e) => setNewComponent(e.target.value)}
             >
-              {AllComponents.map(component => (
+              {AllComponents.map((component) => (
                 <option key={component} value={component}>
                   {component}
                 </option>
@@ -93,7 +93,7 @@ const IndexPage = () => {
           </form>
         )}
       </div>
-      <div>{content.map(comp => renderComponent(comp))}</div>
+      <div>{content.map((comp) => renderComponent(comp))}</div>
     </main>
   );
 };
